@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/active_tasks">
+
+    <fragment
+        android:id="@+id/active_tasks"
+        android:name="com.github.androidpirate.todolistapp.active.ActiveTasksFragment"
+        android:label="Active Tasks"
+        tools:layout="@layout/fragment_active_tasks">
+
+        <action
+            android:id="@+id/active_tasks_to_task_details"
+            app:destination="@id/task_details"/>
+
+        <action
+            android:id="@+id/active_tasks_to_create_task"
+            app:destination="@id/add_task"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_task"
+        android:name="com.github.androidpirate.todolistapp.create.CreateTaskFragment"
+        android:label="Add Task"
+        tools:layout="@layout/fragment_create_task"/>
+
+    <fragment
+        android:id="@+id/task_details"
+        android:name="com.github.androidpirate.todolistapp.detail.TaskDetailFragment"
+        android:label="Task Details"
+        tools:layout="@layout/fragment_task_detail">
+
+        <argument
+            android:name="task_id"
+            app:argType="integer"
+            android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/task_details_to_active_tasks"
+            app:destination="@id/active_tasks"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/completed_tasks"
+        android:name="com.github.androidpirate.todolistapp.completed.CompletedTasksFragment"
+        android:label="Completed Tasks"
+        tools:layout="@layout/fragment_completed_tasks"/>
+
+    <activity
+        android:id="@+id/statistics"
+        android:name="com.github.androidpirate.todolistapp.statistics.StatisticsActivity"
+        android:label="Statistics"
+        tools:layout="@layout/activity_statistics"/>
+
+    <activity
+        android:id="@+id/settings"
+        android:name="com.github.androidpirate.todolistapp.settings.SettingsActivity"
+        android:label="Settings"
+        tools:layout="@layout/activity_settings"/>
+
+</navigation>

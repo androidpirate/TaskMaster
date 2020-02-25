@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_set_complete"
+        android:title="@string/details_menu_ac_complete_content"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_set_priority"
+        android:title="@string/details_menu_ac_priority_content"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_set_reminder"
+        android:title="@string/details_menu_ac_reminder_content"
+        app:showAsAction="never"/>
+</menu>

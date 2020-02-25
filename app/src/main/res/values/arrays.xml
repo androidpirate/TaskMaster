@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bg_color_labels">
+        <item name="color_gray_label">@string/color_gray_label</item>
+        <item name="color_green_label">@string/color_green_label</item>
+        <item name="color_yellow_label">@string/color_yellow_label</item>
+        <item name="color_orange_label">@string/color_orange_label</item>
+        <item name="color_blue_label">@string/color_blue_label</item>
+        <item name="color_pink_label">@string/color_pink_label</item>
+    </string-array>
+
+    <string-array name="bg_color_values">
+        <item name="color_gray_value">@string/color_gray_value</item>
+        <item name="color_green_value">@string/color_green_value</item>
+        <item name="color_yellow_value">@string/color_yellow_value</item>
+        <item name="color_orange_value">@string/color_orange_value</item>
+        <item name="color_blue_value">@string/color_blue_value</item>
+        <item name="color_pink_value">@string/color_pink_value</item>
+    </string-array>
+</resources>

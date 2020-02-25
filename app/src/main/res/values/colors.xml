@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AppTheme   -->
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!-- Basic -->
+    <color name="colorBlack">#000000</color>
+    <!-- Text -->
+    <color name="colorText">#0F0F0F</color>
+    <color name="colorTextLight">#A7A6A6</color>
+    <!-- List Item -->
+    <color name="listItemLowPriorityBackgroundColor">#E7E7E7</color>
+    <color name="listItemMediumPriorityBackgroundColor">#77B7FC</color>
+    <color name="listItemHighPriorityBackgroundColor">#F3BA52</color>
+    <color name="listItemHighLightColor">#71AD40</color>
+</resources>

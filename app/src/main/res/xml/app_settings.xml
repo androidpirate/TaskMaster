@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:title="Dark Theme"
+        android:summary="Turn on/off dark theme."
+        android:key="@string/pref_dark_theme_key"
+        android:defaultValue="false"/>
+
+    <ListPreference
+        android:title="Low Priority Task Background"
+        android:key="@string/pref_low_task_bg_key"
+        android:entries="@array/bg_color_labels"
+        android:entryValues="@array/bg_color_values"
+        android:defaultValue="@string/color_gray_value"/>
+
+    <ListPreference
+        android:title="Medium Priority Task Background"
+        android:key="@string/pref_medium_task_bg_key"
+        android:entries="@array/bg_color_labels"
+        android:entryValues="@array/bg_color_values"
+        android:defaultValue="@string/color_blue_value"/>
+
+    <ListPreference
+        android:title="High Priority Task Background"
+        android:key="@string/pref_high_task_bg_key"
+        android:entries="@array/bg_color_labels"
+        android:entryValues="@array/bg_color_values"
+        android:defaultValue="@string/color_yellow_value"/>
+
+</PreferenceScreen>
