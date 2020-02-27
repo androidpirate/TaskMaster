@@ -10,7 +10,7 @@
 
     <com.github.androidpirate.todolistapp.util.StatisticsView
         android:id="@+id/active_stats_view"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +18,7 @@
 
     <com.github.androidpirate.todolistapp.util.StatisticsView
         android:id="@+id/completed_stats_view"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/active_stats_view"
         app:layout_constraintStart_toStartOf="parent"
