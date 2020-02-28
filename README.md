@@ -13,5 +13,7 @@ The app covers the following topics:
 - ViewPager Implementation
 - Custom View Implementation
 - Shared Preferences Implementation 
-- App Theme and styles Implementation (Including Dark/Light Theme)
+- App Theme and Styles Implementation (Including Dark/Light Theme)
+- Alarm Manager
+- Notifications (With Broadcast Receiver)
 
