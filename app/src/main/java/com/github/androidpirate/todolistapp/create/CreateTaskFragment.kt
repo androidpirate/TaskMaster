@@ -1,9 +1,12 @@
 package com.github.androidpirate.todolistapp.create
 
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.*
@@ -16,8 +19,10 @@ import androidx.navigation.fragment.findNavController
 import com.github.androidpirate.todolistapp.R
 import com.github.androidpirate.todolistapp.data.Priority
 import com.github.androidpirate.todolistapp.data.TaskEntity
+import com.github.androidpirate.todolistapp.util.AlarmReceiver
 import com.github.androidpirate.todolistapp.util.TaskViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.time.Year
 import java.util.*
 
 /**
@@ -102,19 +107,45 @@ class CreateTaskFragment : Fragment() {
         val startHour = currentDateAndTime.get(Calendar.HOUR_OF_DAY)
         val startMinute = currentDateAndTime.get(Calendar.MINUTE)
 
-        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener {
+                _, year, month, day ->
+            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener {
+                    _, hour, minute ->
                 val pickedDateTime = Calendar.getInstance()
                 pickedDateTime.set(year, month, day, hour, minute)
-                    // TODO 3: Implement setting up a reminder
+                    val c = Calendar.getInstance()
+                    c.set(Calendar.YEAR, year)
+                    c.set(Calendar.MONTH, month)
+                    c.set(Calendar.DAY_OF_MONTH, day)
+                    c.set(Calendar.HOUR_OF_DAY, hour)
+                    c.set(Calendar.MINUTE, minute)
+                    c.set(Calendar.SECOND, 0)
+                    setAlarm(c)
             }, startHour, startMinute, true).show()
         }, startYear, startMonth,startDay).show()
     }
 
+    private fun setAlarm(calendar: Calendar) {
+        val alarmManager: AlarmManager =
+            activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra(EXTRA_TITLE, title.text.toString())
+        intent.putExtra(EXTRA_DETAILS, details.text.toString())
+        when(priorityLevel) {
+            Priority.HIGH -> intent.putExtra(EXTRA_PRIORITY, 1)
+            Priority.MEDIUM -> intent.putExtra(EXTRA_PRIORITY, 2)
+            Priority.LOW -> intent.putExtra(EXTRA_PRIORITY, 3)
+        }
+        val pendingIntent = PendingIntent
+            .getBroadcast(context, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    }
+
     private fun setDestinationListener() {
-        findNavController().addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id) {
-                R.id.active_tasks -> saveTask()
+        findNavController()
+            .addOnDestinationChangedListener { _, destination, _ ->
+                when(destination.id) {
+                    R.id.active_tasks -> saveTask()
             }
         }
     }
@@ -144,5 +175,12 @@ class CreateTaskFragment : Fragment() {
                     fab.show()
                 }
             }
+    }
+
+    companion object {
+        private const val ALARM_REQUEST_CODE = 1
+        const val EXTRA_TITLE = "extra title"
+        const val EXTRA_DETAILS = "extra_details"
+        const val EXTRA_PRIORITY = "extra_priority"
     }
 }
