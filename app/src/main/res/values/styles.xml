@@ -6,20 +6,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="base_title_text_style" parent="TextAppearance.AppCompat.Title">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="base_body_text_style" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="base_editable_title_text_style" parent="TextAppearance.AppCompat.Title">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorText</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
@@ -27,12 +25,10 @@
     <style name="base_editable_body_text_style" parent="TextAppearance.AppCompat.Body1">
         <item name="android:inputType">textMultiLine</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="base_headline_text_style" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorTextLight</item>
         <item name="android:gravity">center</item>
         <item name="android:visibility">gone</item>
     </style>
