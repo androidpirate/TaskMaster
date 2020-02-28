@@ -42,11 +42,11 @@
     <string name="color_blue_label">Blue</string>
     <string name="color_pink_label">Pink</string>
     <!-- Color Values -->
-    <string name="color_gray_value">#E7E7E7</string>
-    <string name="color_green_value">#7AC5AF</string>
-    <string name="color_yellow_value">#F3BA52</string>
-    <string name="color_orange_value">#F1A874</string>
-    <string name="color_blue_value">#77B7FC</string>
-    <string name="color_pink_value">#FAA0C5</string>
+    <string name="color_gray_value">#B3AEAE</string>
+    <string name="color_green_value">#4CAF50</string>
+    <string name="color_yellow_value">#FFC107</string>
+    <string name="color_orange_value">#FF9800</string>
+    <string name="color_blue_value">#2196F3</string>
+    <string name="color_pink_value">#F75293</string>
 
 </resources>
