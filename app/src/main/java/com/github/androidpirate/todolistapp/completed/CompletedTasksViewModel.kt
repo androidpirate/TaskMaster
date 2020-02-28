@@ -41,6 +41,7 @@ class CompletedTasksViewModel(private val repo: TaskRepository) : ViewModel() {
         } else {
             repo.deleteTasks(selectedTasks)
         }
+        selectedTasks.clear()
     }
 
     fun setSelectedTasksActive() = ioScope.launch {
@@ -53,6 +54,7 @@ class CompletedTasksViewModel(private val repo: TaskRepository) : ViewModel() {
                 toastEvent.postValue(Event(TASKS_ACTIVATED_CONTENT))
             }
         }
+        selectedTasks.clear()
     }
 
     companion object {
