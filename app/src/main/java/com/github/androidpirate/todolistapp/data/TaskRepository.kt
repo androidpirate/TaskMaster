@@ -26,21 +26,4 @@ class TaskRepository(context: Context) {
     fun deleteTasks(tasks: ArrayList<TaskEntity>) {
         dao.deleteTasks(tasks)
     }
-
-//    companion object {
-//        @Volatile
-//        var INSTANCE: TaskRepository ?= null
-//
-//        fun getTaskRepo(context: Context): TaskRepository {
-//            val tempInstance = INSTANCE
-//            if(tempInstance != null) {
-//                return tempInstance
-//            } else
-//                @Synchronized {
-//                    val instance = TaskRepository(context.applicationContext)
-//                    INSTANCE = instance
-//                    return instance
-//                }
-//        }
-//    }
 }
