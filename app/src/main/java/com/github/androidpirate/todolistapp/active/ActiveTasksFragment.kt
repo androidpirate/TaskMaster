@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.github.androidpirate.todolistapp.R
+import com.github.androidpirate.todolistapp.TaskMasterApplication
 import com.github.androidpirate.todolistapp.data.TaskEntity
 import com.github.androidpirate.todolistapp.detail.TaskDetailFragment
 import com.github.androidpirate.todolistapp.util.TaskViewModelFactory
@@ -51,7 +52,9 @@ class ActiveTasksFragment : Fragment(), ActiveTasksAdapter.ActiveTasksAdapterInt
     }
 
     private fun setupViewModel() {
-        val factory = TaskViewModelFactory(activity?.application!!, null)
+        val factory = TaskViewModelFactory(
+            requireActivity().application as TaskMasterApplication,
+            null)
         viewModel = ViewModelProvider(this, factory).get(ActiveTasksViewModel::class.java)
     }
 

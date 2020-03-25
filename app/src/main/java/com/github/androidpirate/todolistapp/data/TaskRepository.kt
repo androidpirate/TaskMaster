@@ -27,20 +27,20 @@ class TaskRepository(context: Context) {
         dao.deleteTasks(tasks)
     }
 
-    companion object {
-        @Volatile
-        var INSTANCE: TaskRepository ?= null
-
-        fun getTaskRepo(context: Context): TaskRepository {
-            val tempInstance = INSTANCE
-            if(tempInstance != null) {
-                return tempInstance
-            } else
-                @Synchronized {
-                    val instance = TaskRepository(context.applicationContext)
-                    INSTANCE = instance
-                    return instance
-                }
-        }
-    }
+//    companion object {
+//        @Volatile
+//        var INSTANCE: TaskRepository ?= null
+//
+//        fun getTaskRepo(context: Context): TaskRepository {
+//            val tempInstance = INSTANCE
+//            if(tempInstance != null) {
+//                return tempInstance
+//            } else
+//                @Synchronized {
+//                    val instance = TaskRepository(context.applicationContext)
+//                    INSTANCE = instance
+//                    return instance
+//                }
+//        }
+//    }
 }

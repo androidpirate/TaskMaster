@@ -17,6 +17,7 @@ import android.widget.RadioGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.github.androidpirate.todolistapp.R
+import com.github.androidpirate.todolistapp.TaskMasterApplication
 import com.github.androidpirate.todolistapp.data.Priority
 import com.github.androidpirate.todolistapp.data.TaskEntity
 import com.github.androidpirate.todolistapp.util.AlarmReceiver
@@ -72,7 +73,9 @@ class CreateTaskFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        val factory = TaskViewModelFactory(activity?.application!!, null)
+        val factory = TaskViewModelFactory(
+            requireActivity().application as TaskMasterApplication,
+            null)
         viewModel = ViewModelProvider(this, factory).get(CreateTaskViewModel::class.java)
     }
 

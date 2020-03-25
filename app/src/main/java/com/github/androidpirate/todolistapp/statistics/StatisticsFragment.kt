@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.github.androidpirate.todolistapp.R
+import com.github.androidpirate.todolistapp.TaskMasterApplication
 import com.github.androidpirate.todolistapp.util.StatisticsView
 import com.github.androidpirate.todolistapp.util.TaskViewModelFactory
 import kotlinx.android.synthetic.main.statistics_view.view.*
@@ -54,7 +55,7 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        val factory = TaskViewModelFactory(activity?.application!!)
+        val factory = TaskViewModelFactory(requireActivity().application as TaskMasterApplication)
         viewModel = ViewModelProvider(this, factory).get(StatisticsViewModel::class.java)
     }
 

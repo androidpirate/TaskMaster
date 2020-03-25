@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.github.androidpirate.todolistapp.R
+import com.github.androidpirate.todolistapp.TaskMasterApplication
 import com.github.androidpirate.todolistapp.data.TaskEntity
 import com.github.androidpirate.todolistapp.util.TaskViewModelFactory
 import java.lang.IllegalArgumentException
@@ -63,7 +64,9 @@ class CompletedTasksFragment : Fragment(), CompletedTasksAdapter.CompleteTasksAd
     }
 
     private fun setupViewModel() {
-        val factory = TaskViewModelFactory(activity?.application!!, null)
+        val factory = TaskViewModelFactory(
+            requireActivity().application as TaskMasterApplication,
+            null)
         viewModel = ViewModelProvider(this, factory).get(CompletedTasksViewModel::class.java)
     }
 

@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 
 import com.github.androidpirate.todolistapp.R
+import com.github.androidpirate.todolistapp.TaskMasterApplication
 import com.github.androidpirate.todolistapp.data.Priority
 import com.github.androidpirate.todolistapp.util.TaskViewModelFactory
 
@@ -96,7 +97,9 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun setupVieWModel() {
-        val factory = TaskViewModelFactory(activity?.application!!, taskId)
+        val factory = TaskViewModelFactory(
+            requireActivity().application as TaskMasterApplication,
+            taskId)
         viewModel = ViewModelProvider(this, factory).get(TaskDetailViewModel::class.java)
     }
 
