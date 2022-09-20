@@ -26,8 +26,13 @@ constructor(
     val completedTasks: LiveData<List<Task>>
         get() = _completedTasks
 
+    private val _tasks = MutableLiveData<List<Task>>()
+    val tasks: LiveData<List<Task>>
+    get() = _tasks
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
+            _tasks.postValue(repo.getTasks())
             _incompleteTasks.postValue(repo.getIncompleteTasks())
             _completedTasks.postValue(repo.getCompletedTasks())
         }

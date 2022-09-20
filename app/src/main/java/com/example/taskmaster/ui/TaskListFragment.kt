@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,8 @@ class TaskListFragment : Fragment() {
     private lateinit var viewModel: TaskViewModel
     private lateinit var completedTasksAdapter: TaskListItemAdapter
     private lateinit var incompleteTasksAdapter: TaskListItemAdapter
+    private lateinit var emptyList: View
+    private lateinit var taskList: View
     private lateinit var rvCompletedTasks: RecyclerView
     private lateinit var rvIncompleteTasks: RecyclerView
 
@@ -36,6 +39,8 @@ class TaskListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
+        emptyList = view.findViewById(R.id.empty_list)
+        taskList = view.findViewById(R.id.task_list)
         rvCompletedTasks = view.findViewById(R.id.rvCompletedTasks)
         rvIncompleteTasks = view.findViewById(R.id.rvIncompleteTasks)
         return view
@@ -43,9 +48,12 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.insertTask(Task(null, "Task1 is greate mothafucka", false))
-        viewModel.insertTask(Task(null, "Task2 is greater than mothafucka", false))
-        viewModel.insertTask(Task(null, "Task3 is done, mothafucka!", true))
+
+        viewModel.tasks.observe(viewLifecycleOwner) {
+            if(it.isEmpty()) {
+                displayEmptyList()
+            }
+        }
 
         viewModel.incompleteTasks.observe(viewLifecycleOwner) {
             incompleteTasksAdapter.submitList(it)
@@ -58,8 +66,8 @@ class TaskListFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun displayEmptyList() {
+        emptyList.visibility = View.VISIBLE
+        taskList.visibility = View.GONE
     }
 }

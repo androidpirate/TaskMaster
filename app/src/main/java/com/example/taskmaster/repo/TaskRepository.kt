@@ -8,6 +8,9 @@ class TaskRepository
 @Inject
 constructor(private val dao: TaskDao)
 {
+    suspend fun getTasks(): List<Task> {
+        return dao.getTasks()
+    }
 
     suspend fun getIncompleteTasks(): List<Task> {
         return dao.getIncompleteTasks()

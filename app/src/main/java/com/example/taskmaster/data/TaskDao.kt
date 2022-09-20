@@ -5,6 +5,9 @@ import androidx.room.*
 @Dao
 interface TaskDao {
 
+    @Query("SELECT * FROM tasks")
+    fun getTasks(): List<Task>
+
     @Query("SELECT * FROM tasks WHERE isCompleted == 1")
     fun getCompletedTasks(): List<Task>
 
