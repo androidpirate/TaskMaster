@@ -1,5 +1,6 @@
 package com.example.taskmaster.ui.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,9 +37,12 @@ class TaskListItemAdapter:
     }
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvDetails = itemView.findViewById<TextView>(R.id.tvDetails)
         fun onBindItem(item: Task) {
-            itemView.findViewById<TextView>(R.id.tvDetails).text = item.details
+            tvDetails.text = item.details
+            if(item.isCompleted) {
+                tvDetails.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            }
         }
     }
-
 }

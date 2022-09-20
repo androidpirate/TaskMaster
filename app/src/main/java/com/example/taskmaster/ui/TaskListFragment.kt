@@ -47,20 +47,19 @@ class TaskListFragment : Fragment() {
         viewModel.insertTask(Task(null, "Task2 is greater than mothafucka", false))
         viewModel.insertTask(Task(null, "Task3 is done, mothafucka!", true))
 
-        viewModel.incompleteTasks.observe(viewLifecycleOwner, Observer {
+        viewModel.incompleteTasks.observe(viewLifecycleOwner) {
             incompleteTasksAdapter.submitList(it)
-        })
+            rvCompletedTasks.adapter = completedTasksAdapter
+        }
 
-        viewModel.completedTasks.observe(viewLifecycleOwner, Observer {
+        viewModel.completedTasks.observe(viewLifecycleOwner) {
             completedTasksAdapter.submitList(it)
-        })
-
-
+            rvIncompleteTasks.adapter = incompleteTasksAdapter
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        rvCompletedTasks.adapter = completedTasksAdapter
-        rvIncompleteTasks.adapter = incompleteTasksAdapter
+
     }
 }
