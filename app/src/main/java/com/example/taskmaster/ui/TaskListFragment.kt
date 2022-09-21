@@ -5,14 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskmaster.R
-import com.example.taskmaster.data.Task
 import com.example.taskmaster.ui.adapter.TaskListItemAdapter
 import com.example.taskmaster.viewmodel.TaskViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +23,7 @@ class TaskListFragment : Fragment() {
     private lateinit var taskList: View
     private lateinit var rvCompletedTasks: RecyclerView
     private lateinit var rvIncompleteTasks: RecyclerView
+    private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,10 @@ class TaskListFragment : Fragment() {
         taskList = view.findViewById(R.id.task_list)
         rvCompletedTasks = view.findViewById(R.id.rvCompletedTasks)
         rvIncompleteTasks = view.findViewById(R.id.rvIncompleteTasks)
+        fab = view.findViewById(R.id.fab)
+        fab.setOnClickListener {
+            navigateToCreateTaskFragment()
+        }
         return view
     }
 
@@ -69,5 +72,9 @@ class TaskListFragment : Fragment() {
     private fun displayEmptyList() {
         emptyList.visibility = View.VISIBLE
         taskList.visibility = View.GONE
+    }
+
+    private fun navigateToCreateTaskFragment() {
+        
     }
 }
