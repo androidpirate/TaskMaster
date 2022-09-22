@@ -1,13 +1,16 @@
 package com.example.taskmaster.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskmaster.R
+import com.example.taskmaster.data.Task
 import com.example.taskmaster.ui.adapter.TaskListItemAdapter
 import com.example.taskmaster.viewmodel.TaskViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,7 +46,9 @@ class TaskListFragment : Fragment() {
         rvCompletedTasks = view.findViewById(R.id.rvCompletedTasks)
         rvIncompleteTasks = view.findViewById(R.id.rvIncompleteTasks)
         fab = view.findViewById(R.id.fab)
+        fab.bringToFront()
         fab.setOnClickListener {
+            Log.d("Test", "FAB clicked.")
             navigateToCreateTaskFragment()
         }
         return view
@@ -51,6 +56,9 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.insertTask(Task(null, "This is a incomplete task.", false))
+        viewModel.insertTask(Task(null, "This is a completed task.", true))
 
         viewModel.tasks.observe(viewLifecycleOwner) {
             if(it.isEmpty()) {
@@ -75,6 +83,6 @@ class TaskListFragment : Fragment() {
     }
 
     private fun navigateToCreateTaskFragment() {
-        
+        findNavController().navigate(R.id.action_task_list_to_detail)
     }
 }
