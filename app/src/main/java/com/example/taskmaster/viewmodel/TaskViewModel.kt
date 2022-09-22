@@ -31,16 +31,22 @@ constructor(
     get() = _tasks
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            _tasks.postValue(repo.getTasks())
-            _incompleteTasks.postValue(repo.getIncompleteTasks())
-            _completedTasks.postValue(repo.getCompletedTasks())
-        }
+        checkDatabase()
     }
 
     fun insertTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.insertTask(task)
+            checkDatabase()
         }
+    }
+
+    private fun checkDatabase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _tasks.postValue(repo.getTasks())
+            _incompleteTasks.postValue(repo.getIncompleteTasks())
+            _completedTasks.postValue(repo.getCompletedTasks())
+        }
+
     }
 }
