@@ -57,10 +57,6 @@ class TaskListFragment : Fragment(), TaskItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.insertTask(Task(null, "This is a incomplete task.", false))
-        viewModel.insertTask(Task(null, "This is a completed task.", true))
-
         viewModel.tasks.observe(viewLifecycleOwner) {
             if(it.isEmpty()) {
                 displayEmptyList()
@@ -89,6 +85,6 @@ class TaskListFragment : Fragment(), TaskItemClickListener {
     }
 
     private fun navigateToCreateTaskFragment() {
-        findNavController().navigate(R.id.action_task_list_to_detail)
+        findNavController().navigate(R.id.action_task_list_to_create)
     }
 }

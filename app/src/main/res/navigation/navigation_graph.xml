@@ -13,7 +13,7 @@
         tools:layout="@layout/fragment_task_list">
 
         <action
-            android:id="@+id/action_task_list_to_detail"
+            android:id="@+id/action_task_list_to_create"
             app:destination="@id/CreateTaskFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
@@ -28,6 +28,13 @@
         android:label="fragment_create_task"
         tools:layout="@layout/fragment_create_task">
 
+        <action
+            android:id="@+id/action_create_to_task_list"
+            app:destination="@id/TaskListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
 
