@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -41,10 +42,14 @@ class TaskListItemAdapter (
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvDetails = itemView.findViewById<TextView>(R.id.tvDetails)
         private val checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)
+        private val deleteIcon = itemView.findViewById<ImageView>(R.id.ivDelete)
 
         fun onBindItem(item: Task) {
             checkBox.setOnClickListener {
-                clickListener.onItemClick(item)
+                clickListener.onCheckBoxClicked(item)
+            }
+            deleteIcon?.setOnClickListener {
+                clickListener.onDeleteIconClicked(item)
             }
             tvDetails.text = item.details
             if(item.isCompleted) {

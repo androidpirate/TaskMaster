@@ -4,7 +4,7 @@ import com.example.taskmaster.data.Task
 
 interface TaskItemClickListener {
 
-    fun onItemClick(
-        task: Task
-    )
+    fun onCheckBoxClicked(task: Task)
+
+    fun onDeleteIconClicked(task: Task)
 }

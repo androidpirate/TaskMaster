@@ -109,9 +109,13 @@ class TaskListFragment : Fragment(), TaskItemClickListener, MenuProvider {
         }
     }
 
-    override fun onItemClick(task: Task) {
+    override fun onCheckBoxClicked(task: Task) {
         task.isCompleted = !task.isCompleted
         viewModel.updateTask(task)
+    }
+
+    override fun onDeleteIconClicked(task: Task) {
+        viewModel.deleteTask(task)
     }
 
     private fun displayEmptyList() {

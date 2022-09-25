@@ -48,6 +48,13 @@ constructor(
         }
     }
 
+    fun deleteTask(task: Task) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.deleteTask(task)
+            checkDatabase()
+        }
+    }
+
     private fun checkDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             _tasks.postValue(repo.getTasks())
