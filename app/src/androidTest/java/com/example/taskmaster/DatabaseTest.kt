@@ -14,7 +14,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class DatabaseTest {
 
-//    @Mock
     private lateinit var dao: TaskDao
 
     private lateinit var completedTask: Task
@@ -29,10 +28,42 @@ class DatabaseTest {
         incompleteTask = Task(1, "This is a task.", false)
     }
 
+    // Test Insert
     @Test
-    fun test_InsertIncompleteTask() {
+    fun should_Return_The_Same_Task_When_An_Incomplete_Task_Is_Inserted_To_Database() {
         dao.insertTask(incompleteTask)
         val databaseTask = dao.getIncompleteTasks()
         assert(databaseTask[0] == incompleteTask)
+    }
+
+    @Test
+    fun should_Return_The_Same_Task_When_A_Completed_Task_Is_Inserted_To_Database() {
+        dao.insertTask(completedTask)
+        val databaseTask = dao.getCompletedTasks()
+        assert(databaseTask[0] == completedTask)
+    }
+
+    // Test Update
+    @Test
+    fun should_Return_Updated_Data_When_A_Task_Is_Updated_On_Database() {
+        var task = Task(0, "This is a task.", false)
+        dao.insertTask(task)
+        task.details = "This is an updated task."
+        task.isCompleted = true
+        dao.updateTask(task)
+        val updatedTask = dao.getTasks()
+        assert(updatedTask[0].id == task.id &&
+            updatedTask[0].details == task.details &&
+            updatedTask[0].isCompleted == task.isCompleted)
+    }
+
+    // Test Delete
+    @Test
+    fun should_Return_Empty_List_When_Only_Task_In_Database_Is_Deleted() {
+        var task = Task(0, "A task to delete.", false)
+        dao.insertTask(task)
+        dao.deleteTask(task)
+        val tasks = dao.getTasks()
+        assert(tasks.isEmpty())
     }
 }
