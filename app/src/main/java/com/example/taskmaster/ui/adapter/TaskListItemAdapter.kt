@@ -4,14 +4,16 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskmaster.R
 import com.example.taskmaster.data.Task
 
-class TaskListItemAdapter:
-    ListAdapter<Task, TaskListItemAdapter.TaskViewHolder>(TaskItemDiffUtilCallback()) {
+class TaskListItemAdapter (
+    private val clickListener: TaskItemClickListener
+    ): ListAdapter<Task, TaskListItemAdapter.TaskViewHolder>(TaskItemDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -38,7 +40,12 @@ class TaskListItemAdapter:
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvDetails = itemView.findViewById<TextView>(R.id.tvDetails)
+        private val checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)
+
         fun onBindItem(item: Task) {
+            checkBox.setOnClickListener {
+                clickListener.onItemClick(item)
+            }
             tvDetails.text = item.details
             if(item.isCompleted) {
                 tvDetails.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

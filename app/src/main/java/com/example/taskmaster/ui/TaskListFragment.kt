@@ -11,13 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskmaster.R
 import com.example.taskmaster.data.Task
+import com.example.taskmaster.ui.adapter.TaskItemClickListener
 import com.example.taskmaster.ui.adapter.TaskListItemAdapter
 import com.example.taskmaster.viewmodel.TaskViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TaskListFragment : Fragment() {
+class TaskListFragment : Fragment(), TaskItemClickListener {
 
     private lateinit var viewModel: TaskViewModel
     private lateinit var completedTasksAdapter: TaskListItemAdapter
@@ -31,8 +32,8 @@ class TaskListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
-        completedTasksAdapter = TaskListItemAdapter()
-        incompleteTasksAdapter = TaskListItemAdapter()
+        completedTasksAdapter = TaskListItemAdapter(this)
+        incompleteTasksAdapter = TaskListItemAdapter(this)
     }
 
     override fun onCreateView(
@@ -75,6 +76,11 @@ class TaskListFragment : Fragment() {
             completedTasksAdapter.submitList(it)
             rvIncompleteTasks.adapter = incompleteTasksAdapter
         }
+    }
+
+    override fun onItemClick(task: Task) {
+        task.isCompleted = !task.isCompleted
+        viewModel.updateTask(task)
     }
 
     private fun displayEmptyList() {

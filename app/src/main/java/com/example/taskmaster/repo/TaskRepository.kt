@@ -24,7 +24,7 @@ constructor(private val dao: TaskDao)
         dao.insertTask(task)
     }
 
-    suspend fun upsertTask(task: Task) {
+    suspend fun updateTask(task: Task) {
         dao.updateTask(task)
     }
 
