@@ -2,10 +2,13 @@ package com.example.taskmaster.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.TextView
+import androidx.constraintlayout.widget.Guideline
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TaskListFragment : Fragment(), TaskItemClickListener {
+class TaskListFragment : Fragment(), TaskItemClickListener, MenuProvider {
 
     private lateinit var viewModel: TaskViewModel
     private lateinit var completedTasksAdapter: TaskListItemAdapter
@@ -27,7 +30,10 @@ class TaskListFragment : Fragment(), TaskItemClickListener {
     private lateinit var taskList: View
     private lateinit var rvCompletedTasks: RecyclerView
     private lateinit var rvIncompleteTasks: RecyclerView
+    private lateinit var tvCompletedTasksTitle: TextView
+    private lateinit var guideLine: Guideline
     private lateinit var fab: FloatingActionButton
+    private var isCompletedHidden: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +46,16 @@ class TaskListFragment : Fragment(), TaskItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
         emptyList = view.findViewById(R.id.empty_list)
         taskList = view.findViewById(R.id.task_list)
         rvCompletedTasks = view.findViewById(R.id.rvCompletedTasks)
         rvIncompleteTasks = view.findViewById(R.id.rvIncompleteTasks)
+        tvCompletedTasksTitle = view.findViewById(R.id.tvCompletedTasksTitle)
+        guideLine = view.findViewById(R.id.guideline)
         fab = view.findViewById(R.id.fab)
         fab.bringToFront()
         fab.setOnClickListener {
@@ -74,6 +84,31 @@ class TaskListFragment : Fragment(), TaskItemClickListener {
         }
     }
 
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.task_list_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if(menuItem.itemId == R.id.hide_completed_tasks) {
+            isCompletedHidden = !isCompletedHidden
+            if(isCompletedHidden) {
+                hideCompletedTasksList()
+            } else {
+                displayCompletedTasksList()
+            }
+        }
+        return false
+    }
+
+    override fun onMenuClosed(menu: Menu) {
+        val menuItem = menu.findItem(R.id.hide_completed_tasks)
+        if(isCompletedHidden) {
+            menuItem.title = "Show Completed"
+        } else {
+            menuItem.title = "Hide Completed"
+        }
+    }
+
     override fun onItemClick(task: Task) {
         task.isCompleted = !task.isCompleted
         viewModel.updateTask(task)
@@ -82,6 +117,18 @@ class TaskListFragment : Fragment(), TaskItemClickListener {
     private fun displayEmptyList() {
         emptyList.visibility = View.VISIBLE
         taskList.visibility = View.GONE
+    }
+
+    private fun hideCompletedTasksList() {
+        tvCompletedTasksTitle.visibility = View.GONE
+        rvCompletedTasks.visibility = View.GONE
+        guideLine.setGuidelinePercent(1.0f)
+    }
+
+    private fun displayCompletedTasksList() {
+        guideLine.setGuidelinePercent(0.5f)
+        tvCompletedTasksTitle.visibility = View.VISIBLE
+        rvCompletedTasks.visibility = View.VISIBLE
     }
 
     private fun navigateToCreateTaskFragment() {
